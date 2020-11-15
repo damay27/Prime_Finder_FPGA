@@ -1,10 +1,10 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-// Date        : Fri Oct 30 21:51:54 2020
+// Date        : Fri Nov  6 20:03:48 2020
 // Host        : DESKTOP-JPU69U7 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
-//               c:/prime_finder_git/project.srcs/sources_1/bd/prime_finder_design/ip/prime_finder_design_axi_pcie_0_1/prime_finder_design_axi_pcie_0_1_stub.v
+//               c:/Prime_Finder_FPGA/project.srcs/sources_1/bd/prime_finder_design/ip/prime_finder_design_axi_pcie_0_1/prime_finder_design_axi_pcie_0_1_stub.v
 // Design      : prime_finder_design_axi_pcie_0_1
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a100tfgg484-2L

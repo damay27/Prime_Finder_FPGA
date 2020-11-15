@@ -67,10 +67,13 @@ module prime_finder (
     reg [DATA_WIDTH-1 : 0] start_number_reg = 0; //Base addresss + 4
     reg [DATA_WIDTH-1 : 0] done_flag_reg = 0; //Base address + 8
     reg [DATA_WIDTH-1 : 0] result_prime_reg = 0; //Base address + 12
+    reg [DATA_WIDTH-1 : 0] cycle_count_upper_reg = 0;
+    reg [DATA_WIDTH-1 : 0] cycle_count_lower_reg = 0;
     
     reg [DATA_WIDTH-1 : 0] start_number_internal_reg = 0;
     
     wire [DATA_WIDTH-1 : 0] prime_number_wire;
+    wire [(2*DATA_WIDTH)-1 : 0] cycle_count_wire;
     wire prime_found_wire;
     
     prime_finder_backend #(
@@ -84,6 +87,7 @@ module prime_finder (
         .start_search (start_flag_reg[0]),
         
         .prime_number (prime_number_wire),
+        .cycle_count (cycle_count_wire),
         .done (prime_found_wire)
     );
     
@@ -125,7 +129,8 @@ module prime_finder (
         .probe21 (done_flag_reg),
         .probe22 (result_prime_reg),
         .probe23 (prime_number_wire),
-        .probe24 (prime_found_wire)
+        .probe24 (prime_found_wire),
+        .probe25 (cycle_count_wire)
     );
 
 //ila_1 ila_inst( .clk (aclk), .probe0 (bready));
@@ -159,6 +164,9 @@ module prime_finder (
         //Always update the axi registers with the values from the prime finder
         result_prime_reg <= prime_number_wire;
         done_flag_reg <= prime_found_wire;
+        
+        cycle_count_upper_reg <= cycle_count_wire[(2*DATA_WIDTH)-1 : DATA_WIDTH];
+        cycle_count_lower_reg <= cycle_count_wire[DATA_WIDTH-1 : 0];
         
         if(aresetn == 1)
         begin
@@ -248,6 +256,14 @@ module prime_finder (
                 else if(r_address_reg == AXI_ADDR_REGION_START + 12)
                 begin
                     r_data_reg <= result_prime_reg;
+                end
+                else if(r_address_reg == AXI_ADDR_REGION_START + 16) ////////////////////////////////////////////////////
+                begin
+                    r_data_reg <= cycle_count_upper_reg;
+                end
+                else if(r_address_reg == AXI_ADDR_REGION_START + 20) ////////////////////////////////////////////////////
+                begin
+                    r_data_reg <= cycle_count_lower_reg;
                 end
                 else
                 begin

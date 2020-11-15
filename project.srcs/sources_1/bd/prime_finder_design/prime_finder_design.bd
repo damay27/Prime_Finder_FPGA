@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x7A28D0517CF77C75",
+      "boundary_crc": "0xBDC5C92111025770",
       "device": "xc7a100tfgg484-2L",
       "name": "prime_finder_design",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
@@ -20,6 +20,7 @@
       "proc_sys_reset_0": "",
       "util_ds_buf": "",
       "xlconstant_0": "",
+      "vio_0": "",
       "prime_finder_0": ""
     },
     "interface_ports": {
@@ -54,6 +55,26 @@
             "value": "ACTIVE_LOW"
           }
         }
+      },
+      "LED_A1": {
+        "direction": "O",
+        "left": "0",
+        "right": "0"
+      },
+      "LED_A2": {
+        "direction": "O",
+        "left": "0",
+        "right": "0"
+      },
+      "LED_A3": {
+        "direction": "O",
+        "left": "0",
+        "right": "0"
+      },
+      "LED_A4": {
+        "direction": "O",
+        "left": "0",
+        "right": "0"
       }
     },
     "components": {
@@ -196,16 +217,16 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_ds": {
-                "interface_ports": [
-                  "S_AXI",
-                  "auto_ds/S_AXI"
-                ]
-              },
               "auto_ds_to_s00_couplers": {
                 "interface_ports": [
                   "M_AXI",
                   "auto_ds/M_AXI"
+                ]
+              },
+              "s00_couplers_to_auto_ds": {
+                "interface_ports": [
+                  "S_AXI",
+                  "auto_ds/S_AXI"
                 ]
               }
             },
@@ -294,6 +315,9 @@
           "DEVICE_ID": {
             "value": "0x7014"
           },
+          "INTERRUPT_PIN": {
+            "value": "true"
+          },
           "MAX_LINK_SPEED": {
             "value": "2.5_GT/s"
           },
@@ -372,6 +396,18 @@
       "xlconstant_0": {
         "vlnv": "xilinx.com:ip:xlconstant:1.1",
         "xci_name": "prime_finder_design_xlconstant_0_1"
+      },
+      "vio_0": {
+        "vlnv": "xilinx.com:ip:vio:3.0",
+        "xci_name": "prime_finder_design_vio_0_0",
+        "parameters": {
+          "C_NUM_PROBE_IN": {
+            "value": "0"
+          },
+          "C_NUM_PROBE_OUT": {
+            "value": "5"
+          }
+        }
       },
       "prime_finder_0": {
         "vlnv": "xilinx.com:module_ref:prime_finder:1.0",
@@ -627,18 +663,6 @@
           "axi_protocol_convert_0/M_AXI"
         ]
       },
-      "pcie_clkin_1": {
-        "interface_ports": [
-          "pcie_clkin",
-          "util_ds_buf/CLK_IN_D"
-        ]
-      },
-      "axi_pcie_0_pcie_7x_mgt": {
-        "interface_ports": [
-          "pcie_mgt",
-          "axi_pcie_0/pcie_7x_mgt"
-        ]
-      },
       "axi_pcie_0_M_AXI": {
         "interface_ports": [
           "axi_pcie_0/M_AXI",
@@ -658,6 +682,18 @@
           "axi_protocol_convert_0/S_AXI",
           "axi_interconnect_0/M00_AXI"
         ]
+      },
+      "pcie_clkin_1": {
+        "interface_ports": [
+          "pcie_clkin",
+          "util_ds_buf/CLK_IN_D"
+        ]
+      },
+      "axi_pcie_0_pcie_7x_mgt": {
+        "interface_ports": [
+          "pcie_mgt",
+          "axi_pcie_0/pcie_7x_mgt"
+        ]
       }
     },
     "nets": {
@@ -668,6 +704,7 @@
           "axi_interconnect_0/S00_ACLK",
           "axi_interconnect_0/M00_ACLK",
           "axi_protocol_convert_0/aclk",
+          "vio_0/clk",
           "prime_finder_0/aclk"
         ]
       },
@@ -714,8 +751,37 @@
       "xlconstant_0_dout": {
         "ports": [
           "xlconstant_0/dout",
-          "proc_sys_reset_0/ext_reset_in",
+          "proc_sys_reset_0/ext_reset_in"
+        ]
+      },
+      "vio_0_probe_out0": {
+        "ports": [
+          "vio_0/probe_out0",
           "axi_pcie_0/INTX_MSI_Request"
+        ]
+      },
+      "vio_0_probe_out1": {
+        "ports": [
+          "vio_0/probe_out1",
+          "LED_A1"
+        ]
+      },
+      "vio_0_probe_out2": {
+        "ports": [
+          "vio_0/probe_out2",
+          "LED_A2"
+        ]
+      },
+      "vio_0_probe_out3": {
+        "ports": [
+          "vio_0/probe_out3",
+          "LED_A3"
+        ]
+      },
+      "vio_0_probe_out4": {
+        "ports": [
+          "vio_0/probe_out4",
+          "LED_A4"
         ]
       }
     },

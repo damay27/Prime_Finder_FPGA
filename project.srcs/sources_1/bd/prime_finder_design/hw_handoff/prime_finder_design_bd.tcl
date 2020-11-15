@@ -171,6 +171,10 @@ proc create_root_design { parentCell } {
 
 
   # Create ports
+  set LED_A1 [ create_bd_port -dir O -from 0 -to 0 LED_A1 ]
+  set LED_A2 [ create_bd_port -dir O -from 0 -to 0 LED_A2 ]
+  set LED_A3 [ create_bd_port -dir O -from 0 -to 0 LED_A3 ]
+  set LED_A4 [ create_bd_port -dir O -from 0 -to 0 LED_A4 ]
   set pci_reset [ create_bd_port -dir I -type rst pci_reset ]
   set_property -dict [ list \
    CONFIG.POLARITY {ACTIVE_LOW} \
@@ -194,6 +198,7 @@ proc create_root_design { parentCell } {
    CONFIG.BAR1_SIZE {8} \
    CONFIG.BAR1_TYPE {N/A} \
    CONFIG.DEVICE_ID {0x7014} \
+   CONFIG.INTERRUPT_PIN {true} \
    CONFIG.MAX_LINK_SPEED {2.5_GT/s} \
    CONFIG.M_AXI_DATA_WIDTH {64} \
    CONFIG.NO_OF_LANES {X4} \
@@ -227,6 +232,14 @@ proc create_root_design { parentCell } {
    CONFIG.C_BUF_TYPE {IBUFDSGTE} \
  ] $util_ds_buf
 
+  # Create instance: vio_0, and set properties
+  set vio_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:vio:3.0 vio_0 ]
+  set_property -dict [ list \
+   CONFIG.C_EN_PROBE_IN_ACTIVITY {0} \
+   CONFIG.C_NUM_PROBE_IN {0} \
+   CONFIG.C_NUM_PROBE_OUT {5} \
+ ] $vio_0
+
   # Create instance: xlconstant_0, and set properties
   set xlconstant_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0 ]
 
@@ -239,14 +252,19 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net pcie_clkin_1 [get_bd_intf_ports pcie_clkin] [get_bd_intf_pins util_ds_buf/CLK_IN_D]
 
   # Create port connections
-  connect_bd_net -net axi_pcie_0_axi_aclk_out [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_pcie_0/axi_aclk_out] [get_bd_pins axi_protocol_convert_0/aclk] [get_bd_pins prime_finder_0/aclk]
+  connect_bd_net -net axi_pcie_0_axi_aclk_out [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_pcie_0/axi_aclk_out] [get_bd_pins axi_protocol_convert_0/aclk] [get_bd_pins prime_finder_0/aclk] [get_bd_pins vio_0/clk]
   connect_bd_net -net axi_pcie_0_axi_ctl_aclk_out [get_bd_pins axi_pcie_0/axi_ctl_aclk_out] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
   connect_bd_net -net axi_pcie_0_mmcm_lock [get_bd_pins axi_pcie_0/mmcm_lock] [get_bd_pins proc_sys_reset_0/dcm_locked]
   connect_bd_net -net pci_reset_1 [get_bd_ports pci_reset] [get_bd_pins proc_sys_reset_0/aux_reset_in]
   connect_bd_net -net proc_sys_reset_0_interconnect_aresetn [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_protocol_convert_0/aresetn] [get_bd_pins prime_finder_0/aresetn] [get_bd_pins proc_sys_reset_0/interconnect_aresetn]
   connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins axi_pcie_0/axi_aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
   connect_bd_net -net util_ds_buf_IBUF_OUT [get_bd_pins axi_pcie_0/REFCLK] [get_bd_pins util_ds_buf/IBUF_OUT]
-  connect_bd_net -net xlconstant_0_dout [get_bd_pins axi_pcie_0/INTX_MSI_Request] [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins xlconstant_0/dout]
+  connect_bd_net -net vio_0_probe_out0 [get_bd_pins axi_pcie_0/INTX_MSI_Request] [get_bd_pins vio_0/probe_out0]
+  connect_bd_net -net vio_0_probe_out1 [get_bd_ports LED_A1] [get_bd_pins vio_0/probe_out1]
+  connect_bd_net -net vio_0_probe_out2 [get_bd_ports LED_A2] [get_bd_pins vio_0/probe_out2]
+  connect_bd_net -net vio_0_probe_out3 [get_bd_ports LED_A3] [get_bd_pins vio_0/probe_out3]
+  connect_bd_net -net vio_0_probe_out4 [get_bd_ports LED_A4] [get_bd_pins vio_0/probe_out4]
+  connect_bd_net -net xlconstant_0_dout [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins xlconstant_0/dout]
 
   # Create address segments
   assign_bd_address -offset 0x40000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces axi_pcie_0/M_AXI] [get_bd_addr_segs prime_finder_0/interface_aximm/reg0] -force

@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-//Date        : Fri Oct 30 07:31:09 2020
+//Date        : Sat Nov  7 08:40:00 2020
 //Host        : DESKTOP-JPU69U7 running 64-bit major release  (build 9200)
 //Command     : generate_target prime_finder_design.bd
 //Design      : prime_finder_design
@@ -9,15 +9,23 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "prime_finder_design,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=prime_finder_design,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=9,numReposBlks=7,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "prime_finder_design.hwdef" *) 
+(* CORE_GENERATION_INFO = "prime_finder_design,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=prime_finder_design,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=10,numReposBlks=8,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "prime_finder_design.hwdef" *) 
 module prime_finder_design
-   (pci_reset,
+   (LED_A1,
+    LED_A2,
+    LED_A3,
+    LED_A4,
+    pci_reset,
     pcie_clkin_clk_n,
     pcie_clkin_clk_p,
     pcie_mgt_rxn,
     pcie_mgt_rxp,
     pcie_mgt_txn,
     pcie_mgt_txp);
+  output [0:0]LED_A1;
+  output [0:0]LED_A2;
+  output [0:0]LED_A3;
+  output [0:0]LED_A4;
   (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 RST.PCI_RESET RST" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME RST.PCI_RESET, INSERT_VIP 0, POLARITY ACTIVE_LOW" *) input pci_reset;
   (* X_INTERFACE_INFO = "xilinx.com:interface:diff_clock:1.0 pcie_clkin CLK_N" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME pcie_clkin, CAN_DEBUG false, FREQ_HZ 100000000" *) input [0:0]pcie_clkin_clk_n;
   (* X_INTERFACE_INFO = "xilinx.com:interface:diff_clock:1.0 pcie_clkin CLK_P" *) input [0:0]pcie_clkin_clk_p;
@@ -124,8 +132,17 @@ module prime_finder_design
   wire [0:0]proc_sys_reset_0_interconnect_aresetn;
   wire [0:0]proc_sys_reset_0_peripheral_aresetn;
   wire [0:0]util_ds_buf_IBUF_OUT;
+  wire [0:0]vio_0_probe_out0;
+  wire [0:0]vio_0_probe_out1;
+  wire [0:0]vio_0_probe_out2;
+  wire [0:0]vio_0_probe_out3;
+  wire [0:0]vio_0_probe_out4;
   wire [0:0]xlconstant_0_dout;
 
+  assign LED_A1[0] = vio_0_probe_out1;
+  assign LED_A2[0] = vio_0_probe_out2;
+  assign LED_A3[0] = vio_0_probe_out3;
+  assign LED_A4[0] = vio_0_probe_out4;
   assign axi_pcie_0_pcie_7x_mgt_rxn = pcie_mgt_rxn[3:0];
   assign axi_pcie_0_pcie_7x_mgt_rxp = pcie_mgt_rxp[3:0];
   assign pci_reset_1 = pci_reset;
@@ -207,7 +224,7 @@ module prime_finder_design
         .S00_AXI_wstrb(axi_pcie_0_M_AXI_WSTRB),
         .S00_AXI_wvalid(axi_pcie_0_M_AXI_WVALID));
   prime_finder_design_axi_pcie_0_1 axi_pcie_0
-       (.INTX_MSI_Request(xlconstant_0_dout),
+       (.INTX_MSI_Request(vio_0_probe_out0),
         .MSI_Vector_Num({1'b0,1'b0,1'b0,1'b0,1'b0}),
         .REFCLK(util_ds_buf_IBUF_OUT),
         .axi_aclk_out(axi_pcie_0_axi_aclk_out),
@@ -369,6 +386,13 @@ module prime_finder_design
        (.IBUF_DS_N(pcie_clkin_1_CLK_N),
         .IBUF_DS_P(pcie_clkin_1_CLK_P),
         .IBUF_OUT(util_ds_buf_IBUF_OUT));
+  prime_finder_design_vio_0_0 vio_0
+       (.clk(axi_pcie_0_axi_aclk_out),
+        .probe_out0(vio_0_probe_out0),
+        .probe_out1(vio_0_probe_out1),
+        .probe_out2(vio_0_probe_out2),
+        .probe_out3(vio_0_probe_out3),
+        .probe_out4(vio_0_probe_out4));
   prime_finder_design_xlconstant_0_1 xlconstant_0
        (.dout(xlconstant_0_dout));
 endmodule

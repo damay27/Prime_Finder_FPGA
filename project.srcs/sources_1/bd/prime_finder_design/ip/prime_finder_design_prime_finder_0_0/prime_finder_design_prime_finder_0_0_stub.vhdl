@@ -1,10 +1,10 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Fri Oct 30 21:50:28 2020
+-- Date        : Sat Nov  7 08:45:54 2020
 -- Host        : DESKTOP-JPU69U7 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
---               c:/prime_finder_git/project.srcs/sources_1/bd/prime_finder_design/ip/prime_finder_design_prime_finder_0_0/prime_finder_design_prime_finder_0_0_stub.vhdl
+--               c:/Prime_Finder_FPGA/project.srcs/sources_1/bd/prime_finder_design/ip/prime_finder_design_prime_finder_0_0/prime_finder_design_prime_finder_0_0_stub.vhdl
 -- Design      : prime_finder_design_prime_finder_0_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a100tfgg484-2L

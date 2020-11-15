@@ -369,7 +369,7 @@ input wire s_axi_ctl_rready;
     .C_MSI_DECODE_ENABLE("TRUE"),
     .C_INT_FIFO_DEPTH(0),
     .C_NUM_MSI_REQ(0),
-    .C_INTERRUPT_PIN(0),
+    .C_INTERRUPT_PIN(1),
     .C_COMP_TIMEOUT(0),
     .C_INCLUDE_RC(0),
     .C_S_AXI_SUPPORTS_NARROW_BURST(1),

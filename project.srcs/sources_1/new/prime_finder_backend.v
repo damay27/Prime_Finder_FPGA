@@ -28,6 +28,7 @@ module prime_finder_backend(
         input start_search,
         
         output [REG_WIDTH-1 : 0] prime_number,
+        output [(2*REG_WIDTH)-1 : 0] cycle_count,
         output done
     );
     
@@ -60,6 +61,9 @@ module prime_finder_backend(
     reg done_checker_state_1_reg = 0;
     reg done_checker_state_2_reg = 0;
     
+    reg [(2*REG_WIDTH)-1 : 0] cycle_count_reg = 0;
+    assign cycle_count = cycle_count_reg;
+    
     ila_1 ila_1_inst (
         .clk(clk),
         .probe0 (start_number),
@@ -75,7 +79,8 @@ module prime_finder_backend(
         .probe10 (start_search_stage_1_reg),
         .probe11 (start_search_stage_2_reg),
         .probe12 (is_prime_wire),
-        .probe13 (done_checker_wire)
+        .probe13 (done_checker_wire),
+        .probe14 (cycle_count_reg)
     );
     
     prime_checker #(
@@ -109,6 +114,7 @@ module prime_finder_backend(
             number_increment_reg <= 0;
             done_reg <= 0;            
             prime_number_reg <= 0;
+            cycle_count_reg <= 0;
         end
         else
         begin
@@ -124,7 +130,8 @@ module prime_finder_backend(
                                 begin
                                     done_reg <= 0;
                                     number_increment_reg <= start_number + 1;
-                                    start_check_reg <= 1; 
+                                    start_check_reg <= 1;
+                                    cycle_count_reg <= 1; 
                                     state <= SEARCHING;
                                 end
                                 else
@@ -139,6 +146,7 @@ module prime_finder_backend(
                         
                         SEARCHING:
                         begin
+                            cycle_count_reg <= cycle_count_reg + 1;
                             start_check_reg <= 0;
                             if(done_checker_state_1_reg == 1 && done_checker_state_2_reg == 0)
                             begin

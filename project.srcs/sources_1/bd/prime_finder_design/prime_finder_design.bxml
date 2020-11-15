@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="39">
   <CompositeFile CompositeFileTopName="prime_finder_design" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1604068271"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1604068271"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1604068271"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1604068271"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1604767201"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1604767201"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1604767201"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1604767201"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip\prime_finder_design_axi_interconnect_0_1\prime_finder_design_axi_interconnect_0_1.xci" Type="IP">
         <Instance HierarchyPath="axi_interconnect_0"/>
@@ -57,6 +57,14 @@
       </File>
       <File Name="ip\prime_finder_design_prime_finder_0_0\prime_finder_design_prime_finder_0_0.xci" Type="IP">
         <Instance HierarchyPath="prime_finder_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip\prime_finder_design_vio_0_0\prime_finder_design_vio_0_0.xci" Type="IP">
+        <Instance HierarchyPath="vio_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

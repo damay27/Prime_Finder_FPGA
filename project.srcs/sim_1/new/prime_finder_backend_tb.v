@@ -31,6 +31,7 @@ module prime_finder_backend_tb(
     reg start_search = 0;
     
     wire [31 : 0] prime_number;
+    wire [63 : 0] cycle_count;
     wire done;
     
     prime_finder_backend #(
@@ -44,6 +45,7 @@ module prime_finder_backend_tb(
         start_search,
         
         prime_number,
+        cycle_count,
         done
     );
     
@@ -53,7 +55,7 @@ module prime_finder_backend_tb(
     begin
         resetn = 1;
         enable = 1;
-        start_number = 0;
+        start_number = 4;
         start_search = 1;
         #100000
         $finish;
