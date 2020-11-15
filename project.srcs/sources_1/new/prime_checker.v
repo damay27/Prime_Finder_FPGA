@@ -32,7 +32,8 @@ module prime_checker(
     localparam CHECKING = 1;
     localparam IS_PRIME = 2;
     localparam NOT_PRIME = 3;
-    reg [1 : 0] state = IDLE;
+//    reg [1 : 0] state = IDLE;
+    reg state = IDLE;
     
     reg start_operation_reg_mod = 0;
     reg [REG_WIDTH-1 : 0] denominator_reg_mod = 0;
@@ -144,12 +145,17 @@ module prime_checker(
                             //Was the number evenly divisible
                             if(remainder_wire_mod == 0)
                             begin
-                                state <= NOT_PRIME;
+                                is_prime_reg <= 0;
+                                done_reg <= 1;
+                                state <= IDLE;
                             end
                             //Have we reached the number being checked
                             else if( (denominator_reg_mod + 1) == prime_candidate_reg)
                             begin
-                                state <= IS_PRIME;
+//                                state <= IS_PRIME;
+                                is_prime_reg <= 1;
+                                done_reg <= 1;
+                                state <= IDLE;
                             end
                             //Keep checking
                             else
@@ -165,19 +171,19 @@ module prime_checker(
                         end
                     end
                 
-                    IS_PRIME:
-                    begin
-                        is_prime_reg <= 1;
-                        done_reg <= 1;
-                        state <= IDLE;
-                    end
+//                    IS_PRIME:
+//                    begin
+//                        is_prime_reg <= 1;
+//                        done_reg <= 1;
+//                        state <= IDLE;
+//                    end
                 
-                    NOT_PRIME:
-                    begin
-                        is_prime_reg <= 0;
-                        done_reg <= 1;
-                        state <= IDLE;
-                    end
+//                    NOT_PRIME:
+//                    begin
+//                        is_prime_reg <= 0;
+//                        done_reg <= 1;
+//                        state <= IDLE;
+//                    end
                     
                 endcase
             end
