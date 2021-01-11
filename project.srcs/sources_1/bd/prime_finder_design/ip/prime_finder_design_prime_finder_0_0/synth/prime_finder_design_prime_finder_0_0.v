@@ -1,4 +1,4 @@
-// (c) Copyright 1995-2020 Xilinx, Inc. All rights reserved.
+// (c) Copyright 1995-2021 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -76,7 +76,9 @@ module prime_finder_design_prime_finder_0_0 (
   wready,
   bresp,
   bvalid,
-  bready
+  bready,
+  interrupt_number,
+  interrupt_trigger
 );
 
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME aclk, ASSOCIATED_BUSIF interface_aximm, ASSOCIATED_RESET aresetn, FREQ_HZ 125000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN prime_finder_design_axi_pcie_0_1_axi_aclk_out, INSERT_VIP 0" *)
@@ -125,6 +127,8 @@ output wire bvalid;
 UM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 interface_aximm BREADY" *)
 input wire bready;
+output wire [4 : 0] interrupt_number;
+output wire interrupt_trigger;
 
   prime_finder #(
     .DATA_WIDTH(32),
@@ -152,6 +156,8 @@ input wire bready;
     .wready(wready),
     .bresp(bresp),
     .bvalid(bvalid),
-    .bready(bready)
+    .bready(bready),
+    .interrupt_number(interrupt_number),
+    .interrupt_trigger(interrupt_trigger)
   );
 endmodule

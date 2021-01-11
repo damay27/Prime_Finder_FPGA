@@ -1,11 +1,11 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Wed Nov  4 18:33:31 2020
+-- Date        : Sun Dec 20 19:33:43 2020
 -- Host        : DESKTOP-JPU69U7 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub -rename_top prime_finder_design_auto_ds_0 -prefix
---               prime_finder_design_auto_ds_0_ prime_finder_design_auto_ds_0_stub.vhdl
--- Design      : prime_finder_design_auto_ds_0
+--               prime_finder_design_auto_ds_0_ memory_mapped_buffer_auto_ds_0_stub.vhdl
+-- Design      : memory_mapped_buffer_auto_ds_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a100tfgg484-2L
 -- --------------------------------------------------------------------------------

@@ -32,7 +32,11 @@ module prime_finder (
     //Write Response Channel
     output [1:0] bresp,
     output bvalid,
-    input bready
+    input bready,
+    
+    //Interrupt control lines
+    output [4:0] interrupt_number,
+    output interrupt_trigger
 );   
 
     parameter DATA_WIDTH = 32;
@@ -156,6 +160,13 @@ module prime_finder (
     //Read data
     assign rvalid = r_data_valid_reg;
     assign rdata = r_data_reg;
+    
+    //Assign the interrupt output values
+    //The interrupt is triggered when a prime number is found
+    assign interrupt_trigger = done_flag_reg;
+    
+    //Only one interrup is being used so it can be hard coded
+    assign interrupt_number = 1;
     ///////////////////////////////////////////////////////////////////////////
     
     always @ (posedge aclk)

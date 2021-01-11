@@ -1,7 +1,7 @@
 #ifndef IP_PRIME_FINDER_DESIGN_AUTO_DS_0_SC_H_
 #define IP_PRIME_FINDER_DESIGN_AUTO_DS_0_SC_H_
 
-// (c) Copyright 1995-2020 Xilinx, Inc. All rights reserved.
+// (c) Copyright 1995-2021 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
